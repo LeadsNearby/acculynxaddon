@@ -1,6 +1,9 @@
 <?php
+
 GFForms::include_feed_addon_framework();
+
 class GFAcculynxAddOn extends GFFeedAddOn {
+
     protected $_version = '1.0.0';
     protected $_min_gravityforms_version = '2.0.0';
     protected $_slug = 'acculynxaddon';
@@ -10,26 +13,35 @@ class GFAcculynxAddOn extends GFFeedAddOn {
     protected $_short_title = 'Acculynx';
     private static $_instance = null;
     public $api_key;
+
     /**
      * Get an instance of this class.
      *
      * @return GFacculynxaddon
      */
     public static function get_instance() {
+
         if (self::$_instance == null) {
+
             self::$_instance = new GFAcculynxAddOn();
         }
+
         return self::$_instance;
     }
+
     public function init() {
+
         parent::init();
+
     }
+
     /**
      * Configures the settings which should be rendered on the add-on settings tab.
      *
      * @return array
      */
     public function plugin_settings_fields() {
+
         return array(
             array(
                 'title' => esc_html__('Acculynx AddOn Settings', 'acculynxaddon'),
@@ -63,83 +75,14 @@ class GFAcculynxAddOn extends GFFeedAddOn {
             ),
         );
     }
+
     /**
      * Configures the settings which should be rendered on the feed edit page in the Form Settings > Simple Feed Add-On area.
      *
      * @return array
      */
     public function feed_settings_fields() {
-        $phoneTypes = array(
-            array(
-              'text'       => 'Home',
-              'value'      => 'home',
-              'isSelected' => false,
-            ),
-            array(
-              'text'       => 'Mobile',
-              'value'      => 'mobile',
-              'isSelected' => true,
-            ),
-            array(
-              'text'       => 'Work',
-              'value'      => 'work',
-              'isSelected' => false,
-            ),
-        );
-        $jobCategory = array(
-            array(
-              'text'       => 'Residential',
-              'value'      => 'residential',
-              'isSelected' => true,
-            ),
-            array(
-              'text'       => 'Commercial',
-              'value'      => 'commercial',
-              'isSelected' => false,
-            ),
-            array(
-              'text'       => 'Property Management',
-              'value'      => 'propertyManagement',
-              'isSelected' => false,
-            ),
-        );
-        $workType = array(
-            array(
-                'text'       => 'Insurance',
-                'value'      => 'insurance',
-                'isSelected' => true,
-            ),
-            array(
-                'text'       => 'Repair',
-                'value'      => 'repair',
-                'isSelected' => false,
-            ),
-            array(
-                'text'       => 'Retail',
-                'value'      => 'retail',
-                'isSelected' => false,
-            ),
-            array(
-                'text'       => 'Warranty',
-                'value'      => 'warranty',
-                'isSelected' => false,
-            ),
-            array(
-                'text'       => 'New',
-                'value'      => 'new',
-                'isSelected' => false,
-            ),
-            array(
-                'text'       => 'Inspection',
-                'value'      => 'inspection',
-                'isSelected' => false,
-            ),
-            array(
-                'text'       => 'Service',
-                'value'      => 'service',
-                'isSelected' => false,
-            ),
-        );
+
         return array(
             array(
                 'title' => esc_html__('Acculynx Feed Settings', 'acculynxaddon'),
@@ -200,12 +143,6 @@ class GFAcculynxAddOn extends GFFeedAddOn {
                                 'required' => 0,
                             ),
                             array(
-                                'name' => 'phoneType1',
-                                'label' => esc_html__('Phone Type 1', 'acculynxaddon'),
-                                'type' => 'select',
-                                'choices' => $phoneTypes,
-                            ),
-                            array(
                                 'name' => 'phoneNumber2',
                                 'label' => esc_html__('Phone Number 2', 'acculynxaddon'),
                                 'required' => 0,
@@ -217,12 +154,6 @@ class GFAcculynxAddOn extends GFFeedAddOn {
                                 'required' => 0,
                             ),
                             array(
-                                'name' => 'phoneType2',
-                                'label' => esc_html__('Phone Type 2', 'acculynxaddon'),
-                                'type' => 'select',
-                                'choices' => $phoneTypes,
-                            ),
-                            array(
                                 'name' => 'phoneNumber3',
                                 'label' => esc_html__('Phone Number 3', 'acculynxaddon'),
                                 'required' => 0,
@@ -232,12 +163,6 @@ class GFAcculynxAddOn extends GFFeedAddOn {
                                 'name' => 'phoneExtension3',
                                 'label' => esc_html__('Phone Ext 3', 'acculynxaddon'),
                                 'required' => 0,
-                            ),
-                            array(
-                                'name' => 'phoneType3',
-                                'label' => esc_html__('Phone Type 3', 'acculynxaddon'),
-                                'type' => 'select',
-                                'choices' => $phoneTypes,
                             ),
                             array(
                                 'name' => 'address1',
@@ -268,13 +193,11 @@ class GFAcculynxAddOn extends GFFeedAddOn {
                                 'name' => 'jobCategory',
                                 'label' => esc_html__('Job Category', 'acculynxaddon'),
                                 'type' => 'select',
-                                'choices' => $jobCategory,
                             ),
                             array(
                                 'name' => 'workType',
                                 'label' => esc_html__('Job Type', 'acculynxaddon'),
                                 'type' => 'select',
-                                'choices' => $workType,
                             ),
                             array(
                                 'name' => 'summary',
@@ -287,16 +210,19 @@ class GFAcculynxAddOn extends GFFeedAddOn {
             ),
         );
     }
+
     /**
      * Configures which columns should be displayed on the feed list page.
      *
      * @return array
      */
     public function feed_list_columns() {
+
         return array(
             'feedName' => esc_html__('Name', 'acculynxaddon'),
         );
     }
+
     /**
      * Process the feed
      *
@@ -306,13 +232,21 @@ class GFAcculynxAddOn extends GFFeedAddOn {
      *
      * @return bool|void
      */
+
     public function process_feed($feed, $entry, $form) {
+
         $field_map = $this->get_field_map_fields($feed, 'mappedFields');
+
         $field_values = array();
+
         foreach ($field_map as $name => $field_id) {
+
             $field_values[$name] = $this->get_field_value($form, $entry, $field_id);
+
         }
+
         $digits = 3;
+
         $json = array(
             'firstName' => $field_values['fname'],
             'lastName' => $field_values['lname'],
@@ -341,33 +275,53 @@ class GFAcculynxAddOn extends GFFeedAddOn {
             'salesPerson' => 'dev@leadsnearby.com',
             'initialAppointmentDate' => date('Y-m-d\TH:i:s.000\Z', strtotime($field_values['date'] . ' ' . $field_values['time'] . ' ' . get_option('timezone_string'))),    
         );
+
         $json = json_encode($json);
+
         $curl = $this->curl_post($json);
+
         $settings = $this->get_plugin_settings();
+
         $delete = $this->get_plugin_setting('deleteEntries');
+
         if ($curl['code'] == 202 && $delete == 1) {
+
             GFAPI::delete_entry($entry['id']);
+
         }
+
     }
+
     public function curl_post($request_data = '', $entity = 'leads') {
+
         $api_key = $this->get_plugin_setting('apikey');
         $url = 'https://api.acculynx.com/api/v1/' . $entity .'?apikey=' .$api_key;
+
         $ch = curl_init($url);
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $request_data);
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Content-Length: ' . strlen($request_data),
         )
         );
+
         $response = curl_exec($ch);
+
         $response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
         curl_close($ch);
+
         $curl = array(
             'response' => $response,
             'code' => $response_code,
         );
+
         return $curl;
+
     }
+
 }

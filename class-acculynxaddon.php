@@ -53,6 +53,12 @@ class GFAcculynxAddOn extends GFFeedAddOn {
                         'class' => 'medium',
                     ),
                     array(
+                        'name' => 'salesPerson',
+                        'label' => esc_html__('Default Sales Person', 'acculynxaddon'),
+                        'type' => 'text',
+                        'class' => 'medium',
+                    ),
+                    array(
                         'name' => 'deleteEntries',
                         'label' => esc_html__('Delete entries after successful submission to Acculynx?', 'acculynxaddon'),
                         'type' => 'radio',
@@ -236,6 +242,7 @@ class GFAcculynxAddOn extends GFFeedAddOn {
     public function process_feed($feed, $entry, $form) {
 
         $field_map = $this->get_field_map_fields($feed, 'mappedFields');
+        $sales_person = $this->get_plugin_setting('salesPerson');
 
         $field_values = array();
 
@@ -272,7 +279,7 @@ class GFAcculynxAddOn extends GFFeedAddOn {
             'country' => 'USA',
             'priority' => 'normal',
             'notes' => $field_values['summary'],
-            'salesPerson' => 'dev@leadsnearby.com',
+            'salesPerson' => $sales_person,
             'initialAppointmentDate' => date('Y-m-d\TH:i:s.000\Z', strtotime($field_values['date'] . ' ' . $field_values['time'] . ' ' . get_option('timezone_string'))),    
         );
 

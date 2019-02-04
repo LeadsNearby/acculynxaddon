@@ -4,7 +4,7 @@
 Plugin Name: Gravity Forms Acculynx Add-On
 Plugin URI: http://www.leadsnearby.com
 Description: Acculyx integration with gravity forms.
-Version: 1.0.0
+Version: 1.1.0
 Author: LeadsNearby
 Author URI: http://www.leadsnearby.com
 
